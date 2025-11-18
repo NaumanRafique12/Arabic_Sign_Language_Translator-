@@ -27,7 +27,7 @@ It utilizes a Stacked LSTM neural network to recognize 100+ dynamic signs from M
 2.  **Building the Model (Deep Learning):**
     * **Architecture:** The core is a custom **Stacked LSTM (Long Short-Term Memory)** neural network, specifically chosen for its ability to learn patterns in time-series data (motion over time).
     * **Layer Structure:**
-        * **Input Layer:** Accepts the sequence shape of `(30 frames, 84 keypoints)`.
+        * **Input Layer:** Accepts the sequence shape of `(15 frames, 84 keypoints)`.
         * **LSTM Layers:** Three progressive LSTM layers (64, 128, 64 units) process the temporal dependencies of the gestures.
         * **Regularization:** Dropout layers (0.4, 0.2) and L2 kernel regularization are embedded to prevent overfitting on the training data.
         * **Classification:** Fully connected Dense layers reduce the data dimensionality, ending in a Softmax layer that outputs probabilities across 100+ different sign classes.
