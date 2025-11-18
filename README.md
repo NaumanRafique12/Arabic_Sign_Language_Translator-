@@ -5,39 +5,63 @@
 ![MediaPipe](https://img.shields.io/badge/MediaPipe-Enabled-green)
 ![Gemini AI](https://img.shields.io/badge/Google%20Gemini-Powered-purple)
 
-
-Description:
-
 This project bridges the communication gap for the Arabic-speaking Deaf community by translating Sign Language into fluent text in real-time. Unlike standard translators that map gestures to static words, this system understands context.
 
 It utilizes a Stacked LSTM neural network to recognize 100+ dynamic signs from MediaPipe hand landmarks. Unique to this project, it incorporates a Gender Detection module (OpenCV/Caffe) to ensure correct Arabic verb conjugation (e.g., distinguishing between "أنا ذاهبه" and "أنا ذاهب"). Finally, the disjointed words are processed by Google Gemini AI to generate grammatically perfect Arabic sentences, handling complex sentence structures that simple dictionary lookups cannot.
 
 ## 🌟 Key Features
 
+* **Data Collection Pipeline:** Includes a built-in tool to record, label, and augment sign language datasets using your own webcam.
+* * **Deep Learning:** A custom **Stacked LSTM** model trained on 100+ Arabic Sign Language words.
 * **Real-Time Detection:** Uses **MediaPipe** to track 84 hand keypoints at 15 FPS.
-* **Deep Learning:** A custom **Stacked LSTM** model trained on 100+ Arabic Sign Language words.
 * **Gender Awareness:** Integrated **OpenCV Face Detection** determines if the signer is Male or Female to apply correct Arabic verb conjugation (e.g., "يأكل" vs "تأكل").
 * **AI Grammar Correction:** Utilizes **Google Gemini 2.0 Flash-lite** to convert disjointed words (e.g., "I school go") into grammatically perfect Arabic sentences (e.g., "أنا أذهب إلى المدرسة").
-* **Optimistic UI:** Displays predicted words instantly while the LLM processes grammar in the background for a seamless user experience.
+
+## 🛠️ Architecture
+
+1.  **Data Collection Pipeline:**
+    * **Capture:** The system includes a dedicated tool (`collecting_data.ipynb`) that accesses the webcam to record custom datasets. It captures **30 videos** per sign, with each video containing **30 frames** of motion.
+    * **Feature Extraction:** For every frame, **MediaPipe** extracts 84 distinct keypoints (x, y coordinates) from both hands, converting raw pixels into structured numerical data.
+    * **Augmentation:** To double the dataset size and improve model robustness, the system automatically generates flipped versions of every recorded sequence, ensuring the model learns to recognize signs from slightly different perspectives.
+
+2.  **Building the Model (Deep Learning):**
+    * **Architecture:** The core is a custom **Stacked LSTM (Long Short-Term Memory)** neural network, specifically chosen for its ability to learn patterns in time-series data (motion over time).
+    * **Layer Structure:**
+        * **Input Layer:** Accepts the sequence shape of `(30 frames, 84 keypoints)`.
+        * **LSTM Layers:** Three progressive LSTM layers (64, 128, 64 units) process the temporal dependencies of the gestures.
+        * **Regularization:** Dropout layers (0.4, 0.2) and L2 kernel regularization are embedded to prevent overfitting on the training data.
+        * **Classification:** Fully connected Dense layers reduce the data dimensionality, ending in a Softmax layer that outputs probabilities across 100+ different sign classes.
+
+3.  **Real-Time Detection & Mechanism:**
+    * **Inference Loop:** The application runs at ~15 FPS, continuously filling a sliding buffer with the last 30 frames of hand keypoints.
+    * **Prediction & Gating:** The LSTM model predicts the current sign based on this buffer. A prediction is only accepted as valid if the confidence score exceeds **95%** (Threshold), effectively filtering out noise and idle movements.
+    * **Asynchronous Grammar Correction:**
+        * **Optimistic UI:** The recognized raw word (e.g., "eat") appears on screen immediately for instant feedback.
+        * **Contextual Refinement:** A background thread simultaneously sends the accumulated words and the user's gender (detected via OpenCV) to **Google Gemini**. The LLM returns a grammatically correct Arabic sentence (e.g., converting "eat" to "I am eating" based on gender contexts), which seamlessly updates the display without causing video lag.
+
+
+
 
 ## 📂 Project Structure
-```text
 
+```text
 Arabic-Sign-Language-Translator/
 │
-├── assets/                  # Images for Readme (screenshots, architecture diagrams)
-├── data/                    # Raw npy data 
-├── models/                  # Saved models (.h5, .caffemodel, .prototxt)
-│   ├── action3.h5
-│   ├── deploy.prototxt
-│   ├── res10_300x300_ssd_iter_140000.caffemodel
+├── assets/                  # Images for Readme
+├── data/                    # Processed .npy sequence data
+├── tirbo_data_images/       # (Optional) Raw images from data collection
+│
+├── models/                  # Saved models
+│   ├── action3.h5           # Trained LSTM Model
+│   ├── deploy.prototxt      # Face detection config
+│   ├── res10_300x300...     # Face detection weights
 │   ├── gender_deploy.prototxt
 │   └── gender_net.caffemodel
 │
-├── notebooks/               # original experimental notebooks here
-│   ├── Model_Words.ipynb
-│   ├── Word_real_time_trial.ipynb
-│   └── Word_real_time.ipynb
+├── notebooks/               # Notebooks for experiments & tools
+│   ├── collecting_data.ipynb # Tool to record new signs
+│   ├── Model_Words.ipynb    # Training experiments
+│   └── Word_real_time.ipynb # Inference experiments
 │
 ├── src/                     # Source code package
 │   ├── __init__.py
@@ -50,6 +74,5 @@ Arabic-Sign-Language-Translator/
 ├── train.py                 # Script to launch training
 ├── app.py                   # Script to launch real-time inference
 ├── requirements.txt         # Python dependencies
-├── .gitignore               # Files to exclude from Git
-├── .env                     # (GitIgnore this) Store API Keys here
+├── .env                     # API Keys
 └── README.md                # Project Documentation
