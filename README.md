@@ -127,7 +127,7 @@ corresponding word.**
 If you added new signs, you must update the configuration file to map them correctly.
 * Open `src/config.py`.
 * Add your new action strings to the `ACTIONS` list.
-* *(Optional)* Add the Arabic translation to `ARABIC_MAPPING` for the UI display.
+* Add the Arabic translation to `ARABIC_MAPPING` for the UI display.
 
 ### 3. Train the Model
 Execute the training script to compile the LSTM network:
