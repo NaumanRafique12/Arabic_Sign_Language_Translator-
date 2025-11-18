@@ -21,6 +21,7 @@ It utilizes a Stacked LSTM neural network to recognize 100+ dynamic signs from M
 * **Optimistic UI:** Displays predicted words instantly while the LLM processes grammar in the background for a seamless user experience.
 
 ## 📂 Project Structure
+```text
 
 Arabic-Sign-Language-Translator/
 │
