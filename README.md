@@ -108,7 +108,7 @@ cd sign-language-translator
 
 ---
 
-## 🧠 Training (Optional)
+## 🧠 Training
 
 If you wish to expand the vocabulary or retrain the model on your own dataset, follow this pipeline:
 
@@ -117,11 +117,11 @@ Use the included tool to record new signs via your webcam.
 1.  Open `notebooks/collecting_data.ipynb`.
 2.  Update the `actions` list with the new word(s) (e.g., `actions = np.array(['Hello'])`).
 3.  Run the script. It will record **30 sequences** per action and automatically generate **flipped augmentations**, effectively doubling your dataset size.
-** we trained our model on a large dataset of
+**we trained our model on a large dataset of
 video recordings featuring people gesturing 100
 various words which consist of 300 videos in each
 word and each video is labeled with its
-corresponding word. **
+corresponding word.**
 ### 2. Configure Labels
 If you added new signs, you must update the configuration file to map them correctly.
 * Open `src/config.py`.
