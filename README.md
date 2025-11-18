@@ -106,6 +106,34 @@ cd sign-language-translator
 * q: Quit the application.
 * c: Clear the current sentence.
 
+---
+
+## 🧠 Training (Optional)
+
+If you wish to expand the vocabulary or retrain the model on your own dataset, follow this pipeline:
+
+### 1. Collect Data
+Use the included tool to record new signs via your webcam.
+1.  Open `notebooks/collecting_data.ipynb`.
+2.  Update the `actions` list with the new word(s) (e.g., `actions = np.array(['Hello'])`).
+3.  Run the script. It will record **30 sequences** per action and automatically generate **flipped augmentations**, effectively doubling your dataset size.
+** we trained our model on a large dataset of
+video recordings featuring people gesturing 100
+various words which consist of 300 videos in each
+word and each video is labeled with its
+corresponding word. **
+### 2. Configure Labels
+If you added new signs, you must update the configuration file to map them correctly.
+* Open `src/config.py`.
+* Add your new action strings to the `ACTIONS` list.
+* *(Optional)* Add the Arabic translation to `ARABIC_MAPPING` for the UI display.
+
+### 3. Train the Model
+Execute the training script to compile the LSTM network:
+```bash
+python train.py
+
+```
 ## 🤝 Acknowledgements
 * [MediaPipe](https://ai.google.dev/edge/mediapipe/solutions/vision/hand_landmarker): For efficient on-device hand tracking.
 * [Google Gemini](https://ai.google.dev/): For advanced linguistic processing.
