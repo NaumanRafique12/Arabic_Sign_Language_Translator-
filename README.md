@@ -56,7 +56,9 @@ Arabic-Sign-Language-Translator/
 │   ├── deploy.prototxt      # Face detection config
 │   ├── res10_300x300...     # Face detection weights
 │   ├── gender_deploy.prototxt
-│   └── gender_net.caffemodel
+│   ├── gender_net.caffemodel
+│   └── Qwen2.5-1.5B-Instruct-GGUF/
+│       └── qwen2.5-1.5b-instruct-q4_k_m.gguf # Local LLM weights
 │
 ├── notebooks/               # Notebooks for experiments & tools
 │   ├── collecting_data.ipynb # Tool to record new signs
