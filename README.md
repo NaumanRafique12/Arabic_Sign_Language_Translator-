@@ -142,7 +142,7 @@ python train.py
 
 ```
 ## 🤝 Acknowledgements
-* [MediaPipe](https://ai.google.dev/edge/mediapipe/solutions/vision/hand_landmarker): For efficient on-device hand tracking.
+* [MediaPipe](https://ai.google.dev/edge/mediapipe/solutions/vision/holistic_landmarker): For efficient on-device hand tracking.
 * [Qwen (Alibaba Cloud)](https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct-GGUF/blob/main/qwen2.5-1.5b-instruct-q4_k_m.gguf): For Arabic grammar correction.
 * [llama-cpp-python](https://github.com/abetlen/llama-cpp-python): For enabling the execution of the LLM locally on CPU/GPU.
 * [OpenCV](https://opencv.org/): For computer vision tasks.
