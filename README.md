@@ -49,14 +49,13 @@ Arabic-Sign-Language-Translator/
 │
 ├── assets/                  # Images for Readme
 ├── data/                    # Processed .npy sequence data
-├── tirbo_data_images/       # (Optional) Raw images from data collection
 │
 ├── models/                  # Saved models
 │   ├── action3.h5           # Trained LSTM Model
 │   ├── deploy.prototxt      # Face detection config
 │   ├── res10_300x300...     # Face detection weights
-│   ├── gender_deploy.prototxt
-│   ├── gender_net.caffemodel
+│   ├── gender_deploy.prototxt # Gender detection config
+│   ├── gender_net.caffemodel  # Gender detection weights
 │   └── Qwen2.5-1.5B-Instruct-GGUF/
 │       └── qwen2.5-1.5b-instruct-q4_k_m.gguf # Local LLM weights
 │
