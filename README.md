@@ -67,7 +67,6 @@ Arabic-Sign-Language-Translator/
 ├── src/                     # Source code package
 │   ├── config.py            # Configuration (mappings, paths, constants)
 │   ├── keypoints.py         # MediaPipe and extraction logic
-│   ├── model_def.py         # Neural Network Architecture definition
 │   ├── llm_grammar.py       # Gemini API logic
 │   └── utils.py             # Visualization and Arabic text handling
 │
