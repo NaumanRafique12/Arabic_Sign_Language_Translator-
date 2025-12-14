@@ -108,6 +108,7 @@ cd sign-language-translator
  ```
 * q: Quit the application.
 * c: Clear the current sentence.
+* g: Toggle the gender
 
 ---
 
