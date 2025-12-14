@@ -1,0 +1,17 @@
+# --- User Specified Exclusions ---
+# Ignore the large local LLM folder
+models/Qwen2.5-1.5B-Instruct-GGUF/
+
+# Ignore cache folder
+.cache/
+
+# Ignore processed data folder
+data/
+
+# --- Standard Python & Jupyter Exclusions ---
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+env/
+venv/
+.env
